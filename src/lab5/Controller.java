@@ -44,13 +44,15 @@ public class Controller {
 	}
 
 	public int totalApostas(int cenario) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cenarios.get(cenario-1).getApostasQtd();
 	}
 
 	public String toStringApostas(int cenario) {
-		// TODO Auto-generated method stub
-		return null;
+		return cenarios.get(cenario-1).toStringApostas();
+	}
+
+	public void finalizaAposta(int cenario, boolean ocorreu) {
+		cenarios.get(cenario-1).finalizar(ocorreu);
 	}
 
 }

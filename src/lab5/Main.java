@@ -9,6 +9,7 @@ public class Main {
          facade.cadastrarCenario("A maioria irá tirar mais do que 7 na prova!");
          
          System.out.println(facade.exibirCenarios());
-         // … etc
+         facade.cadastrarAposta(1, "Teste", 2525, "Bola");
+         System.out.println(facade.exibeApostas(1));
     }
 }

@@ -34,4 +34,12 @@ public class Facade {
 	public String exibeApostas(int cenario) {
 		return control.toStringApostas(cenario);
 	}
+	
+	public void fecharAposta(int cenario, boolean ocorreu) {
+		control.finalizaAposta(cenario, ocorreu);
+	}
+	
+	public int getCaixaCenario(int cenario) {
+		
+	}
 }
