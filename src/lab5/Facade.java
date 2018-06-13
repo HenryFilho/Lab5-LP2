@@ -1,5 +1,7 @@
 package lab5;
 
+import lab5.system.Controller;
+
 public class Facade {
 	private Controller control;
 
@@ -20,7 +22,7 @@ public class Facade {
 	}
 	
 	public String exibirCenario(int cenario) {
-		return control.toStringCenario(cenario);
+		return control.toStringScenario(cenario);
 	}
 	
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {

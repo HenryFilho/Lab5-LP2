@@ -1,4 +1,4 @@
-package lab5;
+package lab5.system;
 
 public class Bet {
 

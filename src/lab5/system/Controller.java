@@ -1,4 +1,4 @@
-package lab5;
+package lab5.system;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class Controller {
 		this.rate = rate;
 		this.scenarios = new ArrayList<>();
 	}
-
+	
 	public int addScenario(String desc) {
 		Scenario temp = new Scenario(scenarios.size()+1, desc);
 		scenarios.add(temp);
@@ -35,7 +35,7 @@ public class Controller {
 		return temp;
 	}
 	
-	public String toStringCenario(int scenario) {
+	public String toStringScenario(int scenario) {
 		return scenarios.get(scenario-1).toString();
 	}
 	
