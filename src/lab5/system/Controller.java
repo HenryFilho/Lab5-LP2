@@ -27,12 +27,9 @@ public class Controller {
 	public String toStringScenario() {
 		String temp = "";
 		for(int i = 0; i < scenarios.size(); i++) {
-			temp += scenarios.get(i).toString();
-			
-			if(i+1 < scenarios.size())
-				temp += System.lineSeparator();
+			temp += scenarios.get(i).toString() + System.lineSeparator();
 		}
-		return temp;
+		return temp.trim();
 	}
 	
 	public String toStringScenario(int scenario) {

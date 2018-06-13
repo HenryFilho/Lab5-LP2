@@ -20,17 +20,21 @@ public class ControllerTest {
 
 	@Test
 	public void testToStringScenario() {
-		fail("Not yet implemented");
+		control.addScenario("Hoje eu consigo me matar.");
+		control.addScenario("É HOJE");
+		control.addScenario("AGORA VAI AGORA VAI!!!!111!!!1111!1");
+		assertEquals(control.toStringScenario(), "1 - Hoje eu consigo me matar. - Não finalizado\n2 - É HOJE - Não finalizado\n3 - AGORA VAI AGORA VAI!!!!111!!!1111!1 - Não finalizado");
 	}
 
 	@Test
 	public void testToStringScenario2() {
-		fail("Not yet implemented");
+		control.addScenario("Hoje eu consigo me matar.");
+		assertEquals(control.toStringScenario(1), "1 - Hoje eu consigo me matar. - Não finalizado");
 	}
 
 	@Test
 	public void testGetCashier() {
-		fail("Not yet implemented");
+		assertEquals(control.getCashier(), 100000);
 	}
 
 	@Test
