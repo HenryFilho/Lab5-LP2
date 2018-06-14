@@ -57,6 +57,10 @@ public class Controller {
 	public int totalBets(int scenario) {
 		return scenarios.get(scenario-1).getBetsQty();
 	}
+	
+	public int totalBetsValue(int scenario) {
+		return scenarios.get(scenario-1).getBetsValue();
+	}
 
 	public String toStringBets(int scenario) {
 		return scenarios.get(scenario-1).toStringBets();

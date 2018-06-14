@@ -17,6 +17,10 @@ public class Main {
          facade.fecharAposta(1, true);
          System.out.println(facade.getCaixaCenario(1));
          System.out.println(facade.getTotalRateioCenario(1));
+         System.out.println(facade.exibeApostas(1));
+         System.out.println(facade.valorTotalDeApostas(1));
+         
+         
     }
 }
 

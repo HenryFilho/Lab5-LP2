@@ -28,13 +28,22 @@ public class Scenario {
 
 	public void addBet(String better, int value, String prediction) {
 		if(!status.equals("Não finalizado"))
-			throw new RuntimeException("Caixa finalizado");
+			throw new IllegalArgumentException("Caixa finalizado");
 		
 		bets.add(new Bet(better, value, prediction));
 	}
 
 	public int getBetsQty() {
 		return bets.size();
+	}
+	
+	public int getBetsValue() {
+		int temp = 0;
+		Iterator<Bet> itr = bets.iterator();
+		while(itr.hasNext()) {
+			temp += itr.next().getValue();
+		}
+		return temp;
 	}
 
 	public String toStringBets() {
@@ -71,7 +80,7 @@ public class Scenario {
 			}
 			
 			return temp;
-		}throw new RuntimeException("Caixa não finalizado");
+		}throw new IllegalArgumentException("Caixa não finalizado");
 	}
 
 }

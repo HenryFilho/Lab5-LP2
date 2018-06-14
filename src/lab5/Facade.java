@@ -2,37 +2,110 @@ package lab5;
 
 import lab5.system.Controller;
 
+/**
+ * Laboratório de Programação 2 - Lab 5
+ * 
+ * 
+ * @author Henry Maldiney de Lira Nóbrega Filho - 117210389
+ *
+ */
+
 public class Facade {
 	private Controller control;
 
+	/**
+	 * Inicializa o controlador.
+	 * @param centavos
+	 * 		dinheiro iniciais do caixa.
+	 * @param taxa
+	 * 		taxa que é tirada das apostas e adicionada ao caixa.
+	 */
 	public void inicializa(int centavos, double taxa) {
 		control = new Controller(centavos, taxa);
 	}
 	
+	/**
+	 * Exibe o dinheiro total do caixa.
+	 * @return
+	 * 		centavos no caixa.
+	 */
 	public int getCaixa() {
 		return control.getCashier();
 	}
 	
+	/**
+	 * Cadastra um cenário.
+	 * @param descricao
+	 * 		descrição do cenário, o que talvez vá acontecer.
+	 * @return
+	 * 		retorna o número correspondente do cenário cadastrado.
+	 */
 	public int cadastrarCenario(String descricao) {
 		return control.addScenario(descricao);
 	}
 	
+	/**
+	 * Exibe o toString de todos os cenários cadastrados.
+	 * @return
+	 * 		número - descrição - estado
+	 */
 	public String exibirCenarios() {
 		return control.toStringScenario();
 	}
 	
+	/**
+	 * Exibe o toString de um cenário especifico.
+	 * @param cenario
+	 * 		Cenário desejado.
+	 * @return
+	 * 		número - descrição - estado
+	 */
 	public String exibirCenario(int cenario) {
 		return control.toStringScenario(cenario);
 	}
 	
+	/**
+	 * Cadastra uma aposta.
+	 * @param cenario
+	 * 		Cenário desejado.
+	 * @param apostador
+	 * 		Nome do apostador.
+	 * @param valor
+	 * 		Valor da aposta.
+	 * @param previsao
+	 * 		Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 */
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
 		control.addBet(cenario, apostador, valor, previsao);
 	}
 	
-	public int valorTotalDeApostas(int cenario) {
+	/**
+	 * Mostra a quantia de apostas em um dado cenário.
+	 * @param cenario
+	 * 		Cenário desejado.
+	 * @return
+	 * 		Quantia de apostas.
+	 */
+	public int TotalDeApostas(int cenario) {
 		return control.totalBets(cenario);
 	}
 	
+	/**
+	 * Mostra o valor total apostado em um determinado cenário.
+	 * @param cenario
+	 * 		Cenário desejado.
+	 * @return
+	 * 		Valor total de apostas.
+	 */
+	public int valorTotalDeApostas(int cenario) {
+		return control.totalBetsValue(cenario);
+	}
+	
+	/**
+	 * [WIP]
+	 * @param cenario
+	 * @return
+	 */
 	public String exibeApostas(int cenario) {
 		return control.toStringBets(cenario);
 	}

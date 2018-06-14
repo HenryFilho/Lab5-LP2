@@ -17,6 +17,13 @@ public class ControllerTest {
 	public void testAddScenario() {
 		assertEquals(control.addScenario("Vou ficar com preguiça de fazer teste de entrada vazia."), 1);
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddBetFinalized() {
+		control.addScenario("Vai dar erro");
+		control.finalizeBet(1, true);
+		control.addBet(1, "Fulaninho", 20000, "N VAI ACONTECER");
+	}
 
 	@Test
 	public void testToStringScenario() {
@@ -39,27 +46,83 @@ public class ControllerTest {
 
 	@Test
 	public void testGetCashierInt() {
-		fail("Not yet implemented");
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		control.addBet(1, "Anonimo", 199, "N VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.addBet(1, "Livia Maria", 30000, "VAI ACONTECER");
+		control.addBet(1, "Raquel Lopes", 20000, "VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.finalizeBet(1, true);
+		
+		assertEquals(control.getCashier(1), 201);
 	}
-
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetCashierNotFinalized() {
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		control.addBet(1, "Anonimo", 199, "N VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.addBet(1, "Livia Maria", 30000, "VAI ACONTECER");
+		control.addBet(1, "Raquel Lopes", 20000, "VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		
+		control.getCashier(1);
+	}
+	
 	@Test
 	public void testGetReward() {
-		fail("Not yet implemented");
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		control.addBet(1, "Anonimo", 199, "N VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.addBet(1, "Livia Maria", 30000, "VAI ACONTECER");
+		control.addBet(1, "Raquel Lopes", 20000, "VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.finalizeBet(1, true);
+		
+		assertEquals(control.getReward(1), 19998);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetRewardNotFinalized() {
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		control.addBet(1, "Anonimo", 199, "N VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		control.addBet(1, "Livia Maria", 30000, "VAI ACONTECER");
+		control.addBet(1, "Raquel Lopes", 20000, "VAI ACONTECER");
+		control.addBet(1, "Matheus Gaudencio", 10000, "VAI ACONTECER");
+		
+		control.getReward(1);
 	}
 
 	@Test
 	public void testTotalBets() {
-		fail("Not yet implemented");
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		assertEquals(control.totalBets(1),1);
+	}
+	
+	@Test
+	public void testTotalBetsValue() {
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        
+		control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		assertEquals(control.totalBetsValue(1), 20000);
 	}
 
 	@Test
 	public void testToStringBets() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFinalizeBet() {
-		fail("Not yet implemented");
+		control.addScenario("A maioria irá tirar mais do que 7 na prova!");
+        control.addBet(1, "Francisco Cisco", 20000, "N VAI ACONTECER");
+		assertEquals(control.toStringBets(1),"Francisco Cisco - R$200,00 - N VAI ACONTECER");
 	}
 
 }
