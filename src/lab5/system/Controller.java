@@ -42,8 +42,10 @@ public class Controller {
 	 * @return retorna o número correspondente do cenário cadastrado.
 	 */
 	public int addScenario(String desc) {
-		if(desc.trim().equals("") || desc.equals(null))
+		if(desc.trim().equals(""))
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		if(desc.equals(null))
+			throw new NullPointerException("Erro no cadastro de cenario: Descricao nao pode ser nula");
 		
 		Scenario temp = new Scenario(scenarios.size() + 1, desc);
 		scenarios.add(temp);
@@ -67,12 +69,16 @@ public class Controller {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario invalido");
 		if(scenario>scenarios.size())
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario nao cadastrado");
-		if(better.trim().equals("") || better.equals(null))
+		if(better.trim().equals(""))
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
+		if(better.equals(null))
+			throw new NullPointerException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
 		if(value<=0)
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
-		if(prediction.trim().equals("") || prediction.equals(null))
+		if(prediction.trim().equals(""))
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
+		if(prediction.equals(null))
+			throw new NullPointerException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
 		if(!prediction.equals("VAI ACONTECER") && !prediction.equals("N VAI ACONTECER"))
 			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
 		
