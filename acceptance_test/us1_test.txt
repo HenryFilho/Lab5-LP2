@@ -1,0 +1,13 @@
+###########################
+#     LAB05 - TESTE 1     #
+###########################
+
+inicializa caixa=100000 taxa=0.01
+
+expect 100000 getCaixa
+
+
+# Testes com exception
+
+expectError "Erro na inicializacao: Caixa nao pode ser inferior a 0" inicializa caixa=-1 taxa=0.01
+expectError "Erro na inicializacao: Taxa nao pode ser inferior a 0" inicializa caixa=0 taxa=-1

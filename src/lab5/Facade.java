@@ -1,5 +1,6 @@
 package lab5;
 
+import easyaccept.EasyAccept;
 import lab5.system.Controller;
 
 /**
@@ -12,6 +13,11 @@ import lab5.system.Controller;
 public class Facade {
 	private Controller control;
 
+	public static void main(String[] args) {
+		args = new String[] {"lab5.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt", "acceptance_test/us3_test.txt"};
+		EasyAccept.main(args);
+	}
+	
 	/**
 	 * Inicializa o controlador.
 	 * 
@@ -87,7 +93,7 @@ public class Facade {
 	 *            Cenário desejado.
 	 * @return Quantia de apostas.
 	 */
-	public int TotalDeApostas(int cenario) {
+	public int totalDeApostas(int cenario) {
 		return control.totalBets(cenario);
 	}
 

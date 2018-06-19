@@ -1,0 +1,62 @@
+###########################
+#     LAB04 - TESTE 2     #
+###########################
+
+# Garantindo que esta tudo em ordem... por padrao eh a ordem de cadastro
+expect "1 - O aluno Viktor Borgino vai pagar PLP - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=1
+expect "2 - Hoje vai fazer -30 graus em Campina - Finalizado (ocorreu)" exibirCenarioOrdenado cenario=2
+expect "3 - Todos os alunos comparecerao a aula de LP2 nessa terca - Nao finalizado" exibirCenarioOrdenado cenario=3
+expect "4 - As provas vao ser corrigidas ate sexta - Finalizado (ocorreu) - R$ 10,00" exibirCenarioOrdenado cenario=4
+expect "5 - As provas nao vao ser corrigidas ate sexta - Nao finalizado - R$ 0,10" exibirCenarioOrdenado cenario=5
+expect "6 - Este cenario tem seguro - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=6
+expect "7 - Este cenario tambem tem seguro - Nao finalizado - R$ 10,00" exibirCenarioOrdenado cenario=7
+
+# alterando ordem por nome
+alterarOrdem ordem="nome"
+
+expect "5 - As provas nao vao ser corrigidas ate sexta - Nao finalizado - R$ 0,10" exibirCenarioOrdenado cenario=1
+expect "4 - As provas vao ser corrigidas ate sexta - Finalizado (ocorreu) - R$ 10,00" exibirCenarioOrdenado cenario=2
+expect "7 - Este cenario tambem tem seguro - Nao finalizado - R$ 10,00" exibirCenarioOrdenado cenario=3
+expect "6 - Este cenario tem seguro - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=4
+expect "2 - Hoje vai fazer -30 graus em Campina - Finalizado (ocorreu)" exibirCenarioOrdenado cenario=5
+expect "1 - O aluno Viktor Borgino vai pagar PLP - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=6
+expect "3 - Todos os alunos comparecerao a aula de LP2 nessa terca - Nao finalizado" exibirCenarioOrdenado cenario=7
+
+# EXIBIR CENARIO NAO EH AFETADO
+expect "1 - O aluno Viktor Borgino vai pagar PLP - Finalizado (n ocorreu)" exibirCenario cenario=1
+expect "2 - Hoje vai fazer -30 graus em Campina - Finalizado (ocorreu)" exibirCenario cenario=2
+expect "3 - Todos os alunos comparecerao a aula de LP2 nessa terca - Nao finalizado" exibirCenario cenario=3
+expect "4 - As provas vao ser corrigidas ate sexta - Finalizado (ocorreu) - R$ 10,00" exibirCenario cenario=4
+expect "5 - As provas nao vao ser corrigidas ate sexta - Nao finalizado - R$ 0,10" exibirCenario cenario=5
+expect "6 - Este cenario tem seguro - Finalizado (n ocorreu)" exibirCenario cenario=6
+expect "7 - Este cenario tambem tem seguro - Nao finalizado - R$ 10,00" exibirCenario cenario=7
+
+# os cenarios em si nao mudam de identificacao
+cadastrarApostaSeguraTaxa  cenario=5 apostador="Teste ordem" valor=501 previsao="VAI ACONTECER" taxa=0.02 custo=40
+
+# alterando ordem por numero de apostas. em caso de empate, a mais antiga vem primeiro 
+alterarOrdem ordem="apostas"
+expect "6 - Este cenario tem seguro - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=1
+expect "2 - Hoje vai fazer -30 graus em Campina - Finalizado (ocorreu)" exibirCenarioOrdenado cenario=2
+expect "3 - Todos os alunos comparecerao a aula de LP2 nessa terca - Nao finalizado" exibirCenarioOrdenado cenario=3
+expect "1 - O aluno Viktor Borgino vai pagar PLP - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=4
+expect "4 - As provas vao ser corrigidas ate sexta - Finalizado (ocorreu) - R$ 10,00" exibirCenarioOrdenado cenario=5
+expect "7 - Este cenario tambem tem seguro - Nao finalizado - R$ 10,00" exibirCenarioOrdenado cenario=6
+expect "5 - As provas nao vao ser corrigidas ate sexta - Nao finalizado - R$ 0,10" exibirCenarioOrdenado cenario=7
+
+alterarOrdem ordem="cadastro"
+expect "1 - O aluno Viktor Borgino vai pagar PLP - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=1
+expect "2 - Hoje vai fazer -30 graus em Campina - Finalizado (ocorreu)" exibirCenarioOrdenado cenario=2
+expect "3 - Todos os alunos comparecerao a aula de LP2 nessa terca - Nao finalizado" exibirCenarioOrdenado cenario=3
+expect "4 - As provas vao ser corrigidas ate sexta - Finalizado (ocorreu) - R$ 10,00" exibirCenarioOrdenado cenario=4
+expect "5 - As provas nao vao ser corrigidas ate sexta - Nao finalizado - R$ 0,10" exibirCenarioOrdenado cenario=5
+expect "6 - Este cenario tem seguro - Finalizado (n ocorreu)" exibirCenarioOrdenado cenario=6
+expect "7 - Este cenario tambem tem seguro - Nao finalizado - R$ 10,00" exibirCenarioOrdenado cenario=7
+
+
+# Testes com exception
+
+expectError "Erro na consulta de cenario ordenado: Cenario invalido" exibirCenarioOrdenado cenario=-1
+expectError "Erro na consulta de cenario ordenado: Cenario nao cadastrado" exibirCenarioOrdenado cenario=9
+expectError "Erro ao alterar ordem: Ordem invalida" alterarOrdem ordem="tempo"
+expectError "Erro ao alterar ordem: Ordem nao pode ser vazia ou nula" alterarOrdem ordem=" "

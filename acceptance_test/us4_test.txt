@@ -1,0 +1,32 @@
+###########################
+#     LAB04 - TESTE 4     #
+###########################
+
+fecharAposta cenario=1 ocorreu=false
+fecharAposta cenario=2 ocorreu=true
+
+expect 100 getCaixaCenario cenario=1
+expect 100 getCaixaCenario cenario=2
+
+expect 9900 getTotalRateioCenario cenario=1
+expect 9900 getTotalRateioCenario cenario=2
+
+expect 100200 getCaixa
+
+# Testes com exception
+
+
+expectError "Erro ao fechar aposta: Cenario invalido" fecharAposta cenario=0 ocorreu=false
+expectError "Erro ao fechar aposta: Cenario invalido" fecharAposta cenario=-1 ocorreu=false
+expectError "Erro ao fechar aposta: Cenario nao cadastrado" fecharAposta cenario=80 ocorreu=false
+expectError "Erro ao fechar aposta: Cenario ja esta fechado" fecharAposta cenario=1 ocorreu=false
+
+expectError "Erro na consulta do caixa do cenario: Cenario invalido" getCaixaCenario cenario=0
+expectError "Erro na consulta do caixa do cenario: Cenario invalido" getCaixaCenario cenario=-1
+expectError "Erro na consulta do caixa do cenario: Cenario nao cadastrado" getCaixaCenario cenario=99
+expectError "Erro na consulta do caixa do cenario: Cenario ainda esta aberto" getCaixaCenario cenario=3
+
+expectError "Erro na consulta do total de rateio do cenario: Cenario invalido" getTotalRateioCenario cenario=0
+expectError "Erro na consulta do total de rateio do cenario: Cenario invalido" getTotalRateioCenario cenario=-1
+expectError "Erro na consulta do total de rateio do cenario: Cenario nao cadastrado" getTotalRateioCenario cenario=80
+expectError "Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto" getTotalRateioCenario cenario=3

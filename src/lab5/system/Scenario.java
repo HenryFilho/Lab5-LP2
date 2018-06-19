@@ -21,7 +21,7 @@ public class Scenario {
 	public Scenario(int num, String desc) {
 		this.num = num;
 		this.desc = desc;
-		this.status = "Não finalizado";
+		this.status = "Nao finalizado";
 		this.bets = new HashSet<>();
 	}
 
@@ -50,7 +50,7 @@ public class Scenario {
 	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
 	 */
 	public void addBet(String better, int value, String prediction) {
-		if (!status.equals("Não finalizado"))
+		if (!status.equals("Nao finalizado"))
 			throw new IllegalArgumentException("Caixa finalizado");
 
 		bets.add(new Bet(better, value, prediction));
@@ -115,7 +115,7 @@ public class Scenario {
 	 */
 	public int getCashier() {
 		int temp = 0;
-		if (!status.equals("Não finalizado")) {
+		if (!status.equals("Nao finalizado")) {
 			Iterator<Bet> itr = bets.iterator();
 			while (itr.hasNext()) {
 				Bet tempBet = itr.next();

@@ -1,0 +1,44 @@
+###########################
+#     LAB04 - TESTE 3     #
+###########################
+
+cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=10000 previsao="N VAI ACONTECER"
+cadastrarAposta cenario=1 apostador="Viktor Borgino" valor=10000 previsao="VAI ACONTECER"
+
+cadastrarAposta cenario=2 apostador="Mandela Ursula" valor=100000 previsao="VAI ACONTECER"
+cadastrarAposta cenario=2 apostador="Davson Sadman" valor=150000 previsao="VAI ACONTECER"
+cadastrarAposta cenario=2 apostador="Taigo Leonel" valor=10000 previsao="N VAI ACONTECER"
+
+cadastrarAposta cenario=3 apostador="Viktor Borgino" valor=20000 previsao="VAI ACONTECER"
+cadastrarAposta cenario=3 apostador="Matheus Gaudencio" valor=2000000 previsao="VAI ACONTECER"
+cadastrarAposta cenario=3 apostador="Higo Addommati" valor=200000 previsao="N VAI ACONTECER"
+
+expect 20000 valorTotalDeApostas cenario=1
+expect 260000 valorTotalDeApostas cenario=2
+expect 2220000 valorTotalDeApostas cenario=3
+
+expect 2 totalDeApostas cenario=1
+expect 3 totalDeApostas cenario=2
+expect 3 totalDeApostas cenario=3
+
+
+# Testes com exception
+
+expectError "Erro no cadastro de aposta: Cenario invalido" cadastrarAposta cenario=0 apostador="Matheus Melanio" valor=10000 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Cenario nao cadastrado" cadastrarAposta cenario=9 apostador="Matheus Melanio" valor=10000 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo" cadastrarAposta cenario=1 apostador="" valor=10000 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo" cadastrarAposta cenario=1 apostador="  " valor=10000 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=0 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=-3 previsao="N VAI ACONTECER"
+expectError "Erro no cadastro de aposta: Previsao invalida" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=10000 previsao="ACONTECER"
+expectError "Erro no cadastro de aposta: Previsao invalida" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=10000 previsao="N ACONTECER"
+expectError "Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=10000 previsao=""
+expectError "Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula" cadastrarAposta cenario=1 apostador="Matheus Melanio" valor=10000 previsao="   "
+
+expectError "Erro na consulta do valor total de apostas: Cenario invalido" valorTotalDeApostas cenario=0
+expectError "Erro na consulta do valor total de apostas: Cenario invalido" valorTotalDeApostas cenario=-1
+expectError "Erro na consulta do valor total de apostas: Cenario nao cadastrado" valorTotalDeApostas cenario=9
+
+expectError "Erro na consulta do total de apostas: Cenario invalido" totalDeApostas cenario=0
+expectError "Erro na consulta do total de apostas: Cenario invalido" totalDeApostas cenario=-1
+expectError "Erro na consulta do total de apostas: Cenario nao cadastrado" totalDeApostas cenario=10

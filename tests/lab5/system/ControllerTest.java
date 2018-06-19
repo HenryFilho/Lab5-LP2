@@ -32,13 +32,13 @@ public class ControllerTest {
 		control.addScenario("É HOJE");
 		control.addScenario("AGORA VAI AGORA VAI!!!!111!!!1111!1");
 		assertEquals(control.toStringScenario(),
-				"1 - Hoje eu consigo me matar. - Não finalizado\n2 - É HOJE - Não finalizado\n3 - AGORA VAI AGORA VAI!!!!111!!!1111!1 - Não finalizado");
+				"1 - Hoje eu consigo me matar. - Nao finalizado\n2 - É HOJE - Nao finalizado\n3 - AGORA VAI AGORA VAI!!!!111!!!1111!1 - Nao finalizado");
 	}
 
 	@Test
 	public void testToStringScenario2() {
 		control.addScenario("Hoje eu consigo me matar.");
-		assertEquals(control.toStringScenario(1), "1 - Hoje eu consigo me matar. - Não finalizado");
+		assertEquals(control.toStringScenario(1), "1 - Hoje eu consigo me matar. - Nao finalizado");
 	}
 
 	@Test

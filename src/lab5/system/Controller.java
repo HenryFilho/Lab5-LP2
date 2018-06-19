@@ -24,6 +24,11 @@ public class Controller {
 	 *            taxa que é tirada das apostas e adicionada ao caixa.
 	 */
 	public Controller(int cents, double rate) {
+		if(cents < 0)
+			throw new IllegalArgumentException("Erro na inicializacao: Caixa nao pode ser inferior a 0");
+		if(rate < 0)
+			throw new IllegalArgumentException("Erro na inicializacao: Taxa nao pode ser inferior a 0");
+		
 		this.cashier = cents;
 		this.rate = rate;
 		this.scenarios = new ArrayList<>();
@@ -37,6 +42,9 @@ public class Controller {
 	 * @return retorna o número correspondente do cenário cadastrado.
 	 */
 	public int addScenario(String desc) {
+		if(desc.equals(""))
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		
 		Scenario temp = new Scenario(scenarios.size() + 1, desc);
 		scenarios.add(temp);
 		return temp.getNum();
@@ -79,6 +87,11 @@ public class Controller {
 	 * @return número - descrição - estado
 	 */
 	public String toStringScenario(int scenario) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario nao cadastrado");
+		
 		return scenarios.get(scenario - 1).toString();
 	}
 
