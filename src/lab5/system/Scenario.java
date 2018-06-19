@@ -115,24 +115,27 @@ public class Scenario {
 	 */
 	public int getCashier() {
 		int temp = 0;
-		if (!status.equals("Nao finalizado")) {
-			Iterator<Bet> itr = bets.iterator();
-			while (itr.hasNext()) {
-				Bet tempBet = itr.next();
+		
+		Iterator<Bet> itr = bets.iterator();
+		while(itr.hasNext()) {
+			Bet tempBet = itr.next();
+			
+			boolean check1 = tempBet.getPrediction().equals("VAI ACONTECER")
+					&& !status.equals("Finalizado (ocorreu)");
+			boolean check2 = tempBet.getPrediction().equals("N VAI ACONTECER")
+					&& !status.equals("Finalizado (n ocorreu)");
 
-				boolean check1 = tempBet.getPrediction().equals("VAI ACONTECER")
-						&& !status.equals("Finalizado (ocorreu)");
-				boolean check2 = tempBet.getPrediction().equals("N VAI ACONTECER")
-						&& !status.equals("Finalizado (n ocorreu)");
-
-				if (check1 || check2) {
-					temp += tempBet.getValue();
-				}
+			if (check1 || check2) {
+				temp += tempBet.getValue();
 			}
-
-			return temp;
 		}
-		throw new IllegalArgumentException("Caixa não finalizado");
+		return temp;
+	}
+	
+	public boolean closed() {
+		if(!status.equals("Nao finalizado"))
+			return true;
+		return false;
 	}
 
 }

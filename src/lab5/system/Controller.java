@@ -42,7 +42,7 @@ public class Controller {
 	 * @return retorna o número correspondente do cenário cadastrado.
 	 */
 	public int addScenario(String desc) {
-		if(desc.equals(""))
+		if(desc.trim().equals("") || desc.equals(null))
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
 		
 		Scenario temp = new Scenario(scenarios.size() + 1, desc);
@@ -63,6 +63,19 @@ public class Controller {
 	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
 	 */
 	public void addBet(int scenario, String better, int value, String prediction) {
+		if(scenario<=0)
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario invalido");
+		if(scenario>scenarios.size())
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario nao cadastrado");
+		if(better.trim().equals("") || better.equals(null))
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
+		if(value<=0)
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
+		if(prediction.trim().equals("") || prediction.equals(null))
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
+		if(!prediction.equals("VAI ACONTECER") && !prediction.equals("N VAI ACONTECER"))
+			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
+		
 		scenarios.get(scenario - 1).addBet(better, value, prediction);
 	}
 
@@ -112,6 +125,13 @@ public class Controller {
 	 * @return Valor adicionado ao caixa.
 	 */
 	public int getCashier(int scenario) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario nao cadastrado");
+		if(!scenarios.get(scenario -1).closed())
+			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
+		
 		cashier += this.cashierCalc(scenario);
 		return this.cashierCalc(scenario);
 	}
@@ -124,6 +144,13 @@ public class Controller {
 	 * @return Valor do prêmio.
 	 */
 	public int getReward(int scenario) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+		if(!scenarios.get(scenario -1).closed())
+			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
+		
 		return scenarios.get(scenario - 1).getCashier() - this.cashierCalc(scenario);
 	}
 
@@ -147,6 +174,11 @@ public class Controller {
 	 * @return Quantia total de apostas.
 	 */
 	public int totalBets(int scenario) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario nao cadastrado");
+		
 		return scenarios.get(scenario - 1).getBetsQty();
 	}
 
@@ -158,6 +190,11 @@ public class Controller {
 	 * @return Valor total de apostas.
 	 */
 	public int totalBetsValue(int scenario) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario nao cadastrado");
+		
 		return scenarios.get(scenario - 1).getBetsValue();
 	}
 
@@ -181,6 +218,13 @@ public class Controller {
 	 *            Resultado(Finalizado (ocorreu)/Finalizado (n ocorreu))
 	 */
 	public void finalizeBet(int scenario, boolean ocurred) {
+		if(scenario <= 0)
+			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario invalido");
+		if(scenario > scenarios.size())
+			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario nao cadastrado");
+		if(scenarios.get(scenario -1).closed())
+			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
+		
 		scenarios.get(scenario - 1).finalize(ocurred);
 	}
 
