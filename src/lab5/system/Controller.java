@@ -51,6 +51,17 @@ public class Controller {
 		scenarios.add(temp);
 		return temp.getNum();
 	}
+	
+	public int addScenario(String desc, int bonus) {
+		if(desc.trim().equals(""))
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		if(desc.equals(null))
+			throw new NullPointerException("Erro no cadastro de cenario: Descricao nao pode ser nula");
+		
+		ScenarioBonus temp = new ScenarioBonus(scenarios.size() + 1, desc, bonus);
+		scenarios.add(temp);
+		return temp.getNum();
+	}
 
 	/**
 	 * Cadastra uma aposta.

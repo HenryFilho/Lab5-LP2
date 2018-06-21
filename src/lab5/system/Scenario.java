@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public class Scenario {
 
-	private int num;
-	private String desc;
-	private String status;
-	private HashSet<Bet> bets;
+	protected int num;
+	protected String desc;
+	protected String status;
+	protected HashSet<Bet> bets;
 
 	/**
 	 * Construtor do cenário

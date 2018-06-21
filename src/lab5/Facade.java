@@ -52,6 +52,9 @@ public class Facade {
 		return control.addScenario(descricao);
 	}
 
+	public int cadastrarCenario(String descricao, int bonus) {
+		return control.addScenario(descricao, bonus);
+	}
 	/**
 	 * Exibe o toString de todos os cenários cadastrados.
 	 * 
