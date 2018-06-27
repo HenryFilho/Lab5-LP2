@@ -38,6 +38,17 @@ public class ControllerTest {
 	public void testAddScenarioEmpty() {
 		control.addScenario("");
 	}
+	
+	@Test
+	public void testAddScenarioBonus() {
+		int temp = control.addScenario("Example",1000);
+		assertEquals(temp,1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddScenarioBonusInvalid() {
+		control.addScenario("Example",0);
+	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testAddBetInvalidScenario() {
@@ -104,6 +115,13 @@ public class ControllerTest {
 		assertEquals(temp, "1 - Example - Nao finalizado");
 	}
 	
+	@Test
+	public void testToStringScenarioIntBonus() {
+		control.addScenario("Example",1000);
+		String temp = control.toStringScenario(1);
+		assertEquals(temp, "1 - Example - Nao finalizado - R$ 10,00");
+	}
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testToStringScenarioIntInvalid() {
 		control.addScenario("Example");
@@ -163,6 +181,18 @@ public class ControllerTest {
 		assertEquals(temp,684);
 	}
 	
+	@Test
+	public void testGetRewardBonus() {
+		control.addScenario("Example",100);
+		control.addBet(1, "Satan Morningstar", 200, "VAI ACONTECER");
+		control.addBet(1, "Lucifer Lightbringer", 200, "VAI ACONTECER");
+		control.addBet(1, "Mammon", 100, "N VAI ACONTECER");
+		control.addBet(1, "Asmodeus", 590, "N VAI ACONTECER");
+		control.finalizeBet(1, true);
+		int temp = control.getReward(1);
+		assertEquals(temp,784);
+	}
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetRewardInvalid() {
 		control.addScenario("Example");
@@ -185,7 +215,7 @@ public class ControllerTest {
 		control.addBet(1, "Satan Morningstar", 200, "VAI ACONTECER");
 		control.getReward(1);
 	}
-
+	
 	@Test
 	public void testTotalBets() {
 		control.addScenario("Example");

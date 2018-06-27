@@ -3,7 +3,7 @@ package lab5.system;
 public class ScenarioBonus extends Scenario {
 
 	private int bonus;
-	
+
 	public ScenarioBonus(int num, String desc, int bonus) {
 		super(num, desc);
 		this.bonus = bonus;
@@ -14,9 +14,13 @@ public class ScenarioBonus extends Scenario {
 		double temp = bonus / 100.0;
 		return String.format("%s - R$ %.2f", super.toString(), temp);
 	}
-	
-	@Override
-	public int getCashier() {
-		return super.getCashier() + bonus;
+
+	/**
+	 * Retorna o bonus que deve ser dado aos vencedores
+	 * 
+	 * @return bonus
+	 */
+	public int getBonus() {
+		return bonus;
 	}
 }

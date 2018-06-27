@@ -1,14 +1,14 @@
 package lab5.system;
 
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Set;
 
 public class Scenario {
 
 	protected int num;
 	protected String desc;
 	protected String status;
-	protected HashSet<Bet> bets;
+	protected Set<Bet> bets;
 
 	/**
 	 * Construtor do cenário
@@ -72,10 +72,9 @@ public class Scenario {
 	 */
 	public int getBetsValue() {
 		int temp = 0;
-		Iterator<Bet> itr = bets.iterator();
-		while (itr.hasNext()) {
-			temp += itr.next().getValue();
-		}
+		for (Bet bet : bets)
+			temp += bet.getValue();
+
 		return temp;
 	}
 
@@ -86,13 +85,10 @@ public class Scenario {
 	 */
 	public String toStringBets() {
 		String temp = "";
-		Iterator<Bet> itr = bets.iterator();
-		while (itr.hasNext()) {
-			temp += itr.next().toString();
-			if (itr.hasNext())
-				temp += System.lineSeparator();
-		}
-		return temp;
+		for (Bet bet : bets)
+			temp += bet + System.lineSeparator();
+
+		return temp.trim();
 	}
 
 	/**
@@ -109,31 +105,30 @@ public class Scenario {
 	}
 
 	/**
-	 * Retorna o valor que deve ser dividido entre o caixa e os perdedores.
+	 * Retorna o valor que deve ser dividido entre o caixa e os vencedores.
 	 * 
 	 * @return valor
 	 */
 	public int getCashier() {
 		int temp = 0;
-		
-		Iterator<Bet> itr = bets.iterator();
-		while(itr.hasNext()) {
-			Bet tempBet = itr.next();
-			
-			boolean check1 = tempBet.getPrediction().equals("VAI ACONTECER")
-					&& !status.equals("Finalizado (ocorreu)");
-			boolean check2 = tempBet.getPrediction().equals("N VAI ACONTECER")
-					&& !status.equals("Finalizado (n ocorreu)");
+		for (Bet bet : bets) {
+			boolean check1 = bet.getPrediction().equals("VAI ACONTECER") && !status.equals("Finalizado (ocorreu)");
+			boolean check2 = bet.getPrediction().equals("N VAI ACONTECER") && !status.equals("Finalizado (n ocorreu)");
 
-			if (check1 || check2) {
-				temp += tempBet.getValue();
-			}
+			if (check1 || check2)
+				temp += bet.getValue();
 		}
+
 		return temp;
 	}
-	
+
+	/**
+	 * Retorna se o cenário encontra-se fechado ou não.
+	 * 
+	 * @return true se fechado, false se aberto.
+	 */
 	public boolean closed() {
-		if(!status.equals("Nao finalizado"))
+		if (!status.equals("Nao finalizado"))
 			return true;
 		return false;
 	}
