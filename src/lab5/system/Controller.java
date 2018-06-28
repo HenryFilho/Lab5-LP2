@@ -16,6 +16,7 @@ public class Controller {
 	private int cashier;
 	private double rate;
 	private List<Scenario> scenarios;
+	private String order;
 
 	/**
 	 * Construtor do controlador
@@ -207,6 +208,10 @@ public class Controller {
 		return scenarios.get(scenario - 1).toString();
 	}
 
+	public void changeOrder(String order) {
+		this.order = order;
+	}
+	
 	/**
 	 * Exibe o dinheiro total do caixa.
 	 * 

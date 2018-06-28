@@ -209,6 +209,10 @@ public class Facade {
 	public String exibeApostas(int cenario) {
 		return control.toStringBets(cenario);
 	}
+	
+    public void alterarOrdem(String ordem) {
+    	control.changeOrder(ordem);
+    }
 
 	/**
 	 * Finaliza um cenário para que ele não receba mais apostas.
