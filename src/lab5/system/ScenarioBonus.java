@@ -1,9 +1,26 @@
 package lab5.system;
 
+/**
+ * Cenário com um bônus que é distribuido entre os vencedores.
+ * 
+ * @author Henry Filho
+ *
+ */
+
 public class ScenarioBonus extends Scenario {
 
 	private int bonus;
 
+	/**
+	 * Construtor do cenário.
+	 * 
+	 * @param num
+	 *            Número do cenário.
+	 * @param desc
+	 *            Descrição do cenário.
+	 * @param bonus
+	 *            Bônus distribuido entre os vencedores.
+	 */
 	public ScenarioBonus(int num, String desc, int bonus) {
 		super(num, desc);
 		this.bonus = bonus;
@@ -15,12 +32,8 @@ public class ScenarioBonus extends Scenario {
 		return String.format("%s - R$ %.2f", super.toString(), temp);
 	}
 
-	/**
-	 * Retorna o bonus que deve ser dado aos vencedores
-	 * 
-	 * @return bonus
-	 */
-	public int getBonus() {
-		return bonus;
+	@Override
+	public int getReward(double rate) {
+		return super.getReward(rate) + bonus;
 	}
 }

@@ -4,9 +4,10 @@ import easyaccept.EasyAccept;
 import lab5.system.Controller;
 
 /**
- * Laboratório de Programação 2 - Lab 5 (Fachada)
+ * Fachada do projeto, com todos os métodos necessários para a utilização do
+ * sistema. Utilize diretamente métodos de outras classes à sua conta e risco.
  * 
- * @author Henry Maldiney de Lira Nóbrega Filho - 117210389
+ * @author Henry Filho
  *
  */
 
@@ -15,7 +16,8 @@ public class Facade {
 
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
-				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt",  "acceptance_test/us5_test.txt" };
+				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
+				"acceptance_test/us6_test.txt" };
 		EasyAccept.main(args);
 
 	}
@@ -52,6 +54,15 @@ public class Facade {
 		return control.addScenario(descricao);
 	}
 
+	/**
+	 * Cadastra um cenário com um bônus que será dado aos vencedores.
+	 * 
+	 * @param descricao
+	 *            descrição do cenário.
+	 * @param bonus
+	 *            bônus que será dado aos vencedores.
+	 * @return retorna o número correspondente do cenário cadastrado.
+	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		return control.addScenario(descricao, bonus);
 	}
@@ -88,8 +99,82 @@ public class Facade {
 	 * @param previsao
 	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
 	 */
-	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
-		control.addBet(cenario, apostador, valor, previsao);
+	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
+		return control.addBet(cenario, apostador, valor, previsao);
+	}
+
+	/**
+	 * Cadastra uma aposta assegurada por valor.
+	 * 
+	 * @param cenario
+	 *            Cenário desejado.
+	 * @param apostador
+	 *            Nome do apostador.
+	 * @param valor
+	 *            Valor da aposta.
+	 * @param previsao
+	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 * @param valorAssegurado
+	 *            valor do seguro.
+	 * @param custo
+	 *            custo da aposta.
+	 * @return posição da aposta.
+	 */
+	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
+			int valorAssegurado, int custo) {
+		return control.addBet(cenario, apostador, valor, previsao, valorAssegurado, custo);
+	}
+
+	/**
+	 * Cadastra uma aposta assegurada por taxa.
+	 * 
+	 * @param cenario
+	 *            Cenário desejado.
+	 * @param apostador
+	 *            Nome do apostador.
+	 * @param valor
+	 *            Valor da aposta.
+	 * @param previsao
+	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 * @param taxa
+	 *            taxa do seguro.
+	 * @param custo
+	 *            custo da aposta.
+	 * @return posição da aposta.
+	 */
+	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
+			int custo) {
+		return control.addBet(cenario, apostador, valor, previsao, taxa, custo);
+	}
+
+	/**
+	 * Altera o seguro de uma aposta para um valor.
+	 * 
+	 * @param cenario
+	 *            Posição do cenário.
+	 * @param apostaAssegurada
+	 *            Posição da aposta.
+	 * @param valor
+	 *            Valor do seguro da aposta.
+	 * @return Posição da aposta.
+	 */
+	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
+		return control.setAssurance(cenario, apostaAssegurada, valor);
+	}
+
+	/**
+	 * Altera o seguro de uma aposta para uma taxa.
+	 * 
+	 * @param cenario
+	 *            Posição do cenário.
+	 * @param apostaAssegurada
+	 *            Posição da aposta.
+	 * @param taxa
+	 *            Valor do seguro da aposta.
+	 * @return Posição da aposta.
+	 */
+	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
+		return control.setRate(cenario, apostaAssegurada, taxa);
 	}
 
 	/**

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Laboratório de Programação 2 - Lab 5 (Controlador)
+ * Controlador do sistema, responsável pelas principais funções do programa e
+ * pelo tratamento de exceções.
  * 
- * @author Henry Maldiney de Lira Nóbrega Filho - 117210389
+ * @author Henry Filho
  *
  */
 
@@ -53,6 +54,15 @@ public class Controller {
 		return temp.getNum();
 	}
 
+	/**
+	 * Cadastra um cenário com um bônus que será dado aos vencedores.
+	 * 
+	 * @param desc
+	 *            descrição do cenário.
+	 * @param bonus
+	 *            bônus que será dado aos vencedores.
+	 * @return retorna o número correspondente do cenário cadastrado.
+	 */
 	public int addScenario(String desc, int bonus) {
 		if (desc.trim().equals(""))
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
@@ -68,6 +78,31 @@ public class Controller {
 	}
 
 	/**
+	 * exceções lançadas durante o cadastro de aposta. Método feito com o intuito de
+	 * não repetir tantas vezes as várias exceções lançadas pelos métodos addBet.
+	 */
+	private void addBetExceptions(int scenario, String better, int value, String prediction, String msg) {
+		if (scenario <= 0)
+			throw new IllegalArgumentException(msg + ": Cenario invalido");
+		if (scenario > scenarios.size())
+			throw new IndexOutOfBoundsException(msg + ": Cenario nao cadastrado");
+		if (scenarios.get(scenario - 1).closed())
+			throw new IllegalArgumentException(msg + ": Cenario ja esta fechado");
+		if (better.trim().equals(""))
+			throw new IllegalArgumentException(msg + ": Apostador nao pode ser vazio ou nulo");
+		if (better.equals(null))
+			throw new NullPointerException(msg + ": Apostador nao pode ser vazio ou nulo");
+		if (value <= 0)
+			throw new IllegalArgumentException(msg + ": Valor nao pode ser menor ou igual a zero");
+		if (prediction.trim().equals(""))
+			throw new IllegalArgumentException(msg + ": Previsao nao pode ser vazia ou nula");
+		if (prediction.equals(null))
+			throw new NullPointerException(msg + ": Previsao nao pode ser vazia ou nula");
+		if (!prediction.equals("VAI ACONTECER") && !prediction.equals("N VAI ACONTECER"))
+			throw new IllegalArgumentException(msg + ": Previsao invalida");
+	}
+
+	/**
 	 * Cadastra uma aposta.
 	 * 
 	 * @param scenario
@@ -78,26 +113,69 @@ public class Controller {
 	 *            Valor da aposta.
 	 * @param prediction
 	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 * @return posição da aposta.
 	 */
-	public void addBet(int scenario, String better, int value, String prediction) {
-		if (scenario <= 0)
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario invalido");
-		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Cenario nao cadastrado");
-		if (better.trim().equals(""))
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
-		if (better.equals(null))
-			throw new NullPointerException("Erro no cadastro de aposta: Apostador nao pode ser vazio ou nulo");
-		if (value <= 0)
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Valor nao pode ser menor ou igual a zero");
-		if (prediction.trim().equals(""))
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
-		if (prediction.equals(null))
-			throw new NullPointerException("Erro no cadastro de aposta: Previsao nao pode ser vazia ou nula");
-		if (!prediction.equals("VAI ACONTECER") && !prediction.equals("N VAI ACONTECER"))
-			throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
+	public int addBet(int scenario, String better, int value, String prediction) {
+		addBetExceptions(scenario, better, value, prediction, "Erro no cadastro de aposta");
 
-		scenarios.get(scenario - 1).addBet(better, value, prediction);
+		return scenarios.get(scenario - 1).addBet(better, value, prediction);
+	}
+
+	/**
+	 * Cadastra uma aposta assegurada por valor.
+	 * 
+	 * @param scenario
+	 *            Cenário desejado.
+	 * @param better
+	 *            Nome do apostador.
+	 * @param value
+	 *            Valor da aposta.
+	 * @param prediction
+	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 * @param assuranceValue
+	 *            valor do seguro.
+	 * @param cost
+	 *            custo da aposta.
+	 * @return posição da aposta.
+	 */
+	public int addBet(int scenario, String better, int value, String prediction, int assuranceValue, int cost) {
+		addBetExceptions(scenario, better, value, prediction, "Erro no cadastro de aposta assegurada por valor");
+
+		cashier += cost;
+		return scenarios.get(scenario - 1).addBet(better, value, prediction, assuranceValue);
+
+	}
+
+	/**
+	 * Cadastra uma aposta assegurada por taxa.
+	 * 
+	 * @param scenario
+	 *            Cenário desejado.
+	 * @param better
+	 *            Nome do apostador.
+	 * @param value
+	 *            Valor da aposta.
+	 * @param prediction
+	 *            Previsão(N VAI ACONTECER/VAI ACONTECER)
+	 * @param rate
+	 *            taxa do seguro.
+	 * @param cost
+	 *            custo da aposta.
+	 * @return posição da aposta.
+	 */
+	public int addBet(int scenario, String better, int value, String prediction, double rate, int cost) {
+		addBetExceptions(scenario, better, value, prediction, "Erro no cadastro de aposta assegurada por taxa");
+
+		cashier += cost;
+		return scenarios.get(scenario - 1).addBet(better, value, prediction, rate);
+	}
+
+	public int setAssurance(int scenario, int assuredBet, int value) {
+		return scenarios.get(scenario - 1).setAssurance(assuredBet, value);
+	}
+
+	public int setRate(int scenario, int assuredBet, double rate) {
+		return scenarios.get(scenario - 1).setRate(assuredBet, rate);
 	}
 
 	/**
@@ -124,7 +202,7 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro na consulta de cenario: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException("Erro na consulta de cenario: Cenario nao cadastrado");
 
 		return scenarios.get(scenario - 1).toString();
 	}
@@ -149,11 +227,12 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException("Erro na consulta do caixa do cenario: Cenario nao cadastrado");
 		if (!scenarios.get(scenario - 1).closed())
 			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
 
-		return this.cashierCalc(scenario);
+		int temp = scenarios.get(scenario - 1).getCashier();
+		return (int) (temp * rate);
 	}
 
 	/**
@@ -167,26 +246,13 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException(
+					"Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
 		if (!scenarios.get(scenario - 1).closed())
-			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
+			throw new IllegalArgumentException(
+					"Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 
-		int reward = scenarios.get(scenario - 1).getCashier() - this.cashierCalc(scenario);
-		if (scenarios.get(scenario - 1) instanceof ScenarioBonus)
-			return reward + ((ScenarioBonus) scenarios.get(scenario - 1)).getBonus();
-		return reward;
-	}
-
-	/**
-	 * Calcula o valor que deve ser adicionado ao caixa.
-	 * 
-	 * @param scenario
-	 *            Cenário desejado.
-	 * @return valor que deve ser adicionado ao caixa.
-	 */
-	private int cashierCalc(int scenario) {
-		int temp = scenarios.get(scenario - 1).getCashier();
-		return (int) (temp * rate);
+		return scenarios.get(scenario - 1).getReward(rate);
 	}
 
 	/**
@@ -200,7 +266,7 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro na consulta do total de apostas: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException("Erro na consulta do total de apostas: Cenario nao cadastrado");
 
 		return scenarios.get(scenario - 1).getBetsQty();
 	}
@@ -216,7 +282,7 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro na consulta do valor total de apostas: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException("Erro na consulta do valor total de apostas: Cenario nao cadastrado");
 
 		return scenarios.get(scenario - 1).getBetsValue();
 	}
@@ -244,12 +310,13 @@ public class Controller {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario invalido");
 		if (scenario > scenarios.size())
-			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario nao cadastrado");
+			throw new IndexOutOfBoundsException("Erro ao fechar aposta: Cenario nao cadastrado");
 		if (scenarios.get(scenario - 1).closed())
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 
 		scenarios.get(scenario - 1).finalize(ocurred);
-		cashier += this.cashierCalc(scenario);
+		cashier += scenarios.get(scenario - 1).getCashier() * rate;
+		cashier -= scenarios.get(scenario - 1).getAssurance();
 	}
 
 }

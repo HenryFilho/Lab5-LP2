@@ -1,9 +1,16 @@
 package lab5.system;
 
+/**
+ * Aposta pai.
+ * 
+ * @author Henry Filho
+ *
+ */
+
 public class Bet {
 
 	private String better;
-	private int value;
+	protected int value;
 	private String prediction;
 
 	/**
@@ -30,6 +37,7 @@ public class Bet {
 
 	/**
 	 * Getter
+	 * 
 	 * @return value
 	 */
 	public int getValue() {
@@ -38,6 +46,7 @@ public class Bet {
 
 	/**
 	 * Getter
+	 * 
 	 * @return better
 	 */
 	public String getBetter() {
@@ -46,10 +55,22 @@ public class Bet {
 
 	/**
 	 * Getter
+	 * 
 	 * @return prediction
 	 */
 	public String getPrediction() {
 		return prediction;
 	}
+	
+	/**
+	 * Método vazio utilizado pelas classes filhas.
+	 */
+	public int getAssurance() { return 0; }
+	
+	/*
+	 * Método vazio utilizado pelas classes filhas.
+	 */
+	public void setAssurance(Object assurance) {}
+
 
 }

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"lab5.system","l":"AssuredBet"},{"p":"lab5.system","l":"Bet"},{"p":"lab5.system","l":"Controller"},{"p":"lab5","l":"Facade"},{"p":"lab5.system","l":"Scenario"},{"p":"lab5.system","l":"ScenarioBonus"}]
