@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"lab5"},{"l":"lab5.system"}]
+packageSearchIndex = [{"l":"lab5.system.control"},{"l":"lab5.system.sorters"}]

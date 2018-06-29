@@ -4,6 +4,13 @@ import java.util.Comparator;
 
 import lab5.system.control.Scenario;
 
+/**
+ * Ordena cenários em ordem alfabética utilizando o método Colletions.sort().
+ * 
+ * @author Henry Filho
+ *
+ */
+
 public class SorterName implements Comparator<Scenario> {
 
 	@Override

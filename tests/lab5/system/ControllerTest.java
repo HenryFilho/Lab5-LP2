@@ -127,6 +127,22 @@ public class ControllerTest {
 	}
 
 	@Test
+	public void testSetAssurance() {
+		control.addScenario("Example");
+		control.addBet(1, "Satan Morningstar", 200, "VAI ACONTECER", 0.05, 150);
+		int temp = control.setAssurance(1, 1, 100);
+		assertEquals(temp,1);
+	}
+	
+	@Test
+	public void testSetRate() {
+		control.addScenario("Example");
+		control.addBet(1, "Satan Morningstar", 200, "VAI ACONTECER", 100, 150);
+		int temp = control.setRate(1, 1, 0.05);
+		assertEquals(temp,1);
+	}
+	
+	@Test
 	public void testToStringScenario() {
 		control.addScenario("Example one");
 		control.addScenario("Example two");
@@ -159,6 +175,44 @@ public class ControllerTest {
 	public void testToStringScenarioIntOutofBounds() {
 		control.addScenario("Example");
 		control.toStringScenario(2);
+	}
+	
+	@Test
+	public void testToStringOrderedScenarioBase() {
+		control.addScenario("Example");
+		control.addScenario("Axample");
+		control.changeOrder("cadastro");
+		String temp = control.toStringOrderedScenario(2);
+		assertEquals(temp,"2 - Axample - Nao finalizado");
+	}
+	
+	@Test
+	public void testToStringOrderedScenarioName() {
+		control.addScenario("Example");
+		control.addScenario("Axample");
+		control.changeOrder("nome");
+		String temp = control.toStringOrderedScenario(2);
+		assertEquals(temp,"1 - Example - Nao finalizado");
+	}
+	
+	@Test
+	public void testToStringOrderedScenarioQty() {
+		control.addScenario("Example");
+		control.addScenario("Axample");
+		control.changeOrder("apostas");
+		control.addBet(2, "Satan Morningstar", 200, "VAI ACONTECER");
+		String temp = control.toStringOrderedScenario(2);
+		assertEquals(temp,"1 - Example - Nao finalizado");
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testChangeOrderNull() {
+		control.changeOrder(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testChangeOrderInvalid() {
+		control.changeOrder("example");
 	}
 
 	@Test

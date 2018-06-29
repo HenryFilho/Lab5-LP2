@@ -178,10 +178,32 @@ public class Controller {
 		return scenarios.get(scenario - 1).addBet(better, value, prediction, rate);
 	}
 
+	/**
+	 * Altera o seguro de uma aposta para um valor.
+	 * 
+	 * @param scenario
+	 *            Posição do cenário.
+	 * @param assuredBet
+	 *            Posição da aposta.
+	 * @param value
+	 *            Valor da aposta.
+	 * @return posição da aposta.
+	 */
 	public int setAssurance(int scenario, int assuredBet, int value) {
 		return scenarios.get(scenario - 1).setAssurance(assuredBet, value);
 	}
 
+	/**
+	 * Altera o seguro de uma aposta para uma taxa.
+	 * 
+	 * @param scenario
+	 *            Posição do cenário.
+	 * @param assuredBet
+	 *            Posição da aposta.
+	 * @param rate
+	 *            Valor da taxa.
+	 * @return posição da aposta.
+	 */
 	public int setRate(int scenario, int assuredBet, double rate) {
 		return scenarios.get(scenario - 1).setRate(assuredBet, rate);
 	}
@@ -214,36 +236,53 @@ public class Controller {
 
 		return scenarios.get(scenario - 1).toString();
 	}
-	
+
+	/**
+	 * Exibe a representação textual do cenário de acordo com a ordem definida no
+	 * método changeOrder().
+	 * 
+	 * @param scenario
+	 *            Posição do cenário.
+	 * @return representação textual do cenário.
+	 */
 	public String toStringOrderedScenario(int scenario) {
 		if (scenario <= 0)
 			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: Cenario invalido");
 		if (scenario > scenarios.size())
 			throw new IndexOutOfBoundsException("Erro na consulta de cenario ordenado: Cenario nao cadastrado");
-		
+
 		if (order.equals("cadastro"))
 			return scenarios.get(scenario - 1).toString();
 		if (order.equals("nome")) {
 			List<Scenario> temp = new ArrayList<>(scenarios);
 			Collections.sort(temp, new SorterName());
-			return temp.get(scenario-1).toString();
-		}if (order.equals("apostas")) {
+			return temp.get(scenario - 1).toString();
+		}
+		if (order.equals("apostas")) {
 			List<Scenario> temp = new ArrayList<>(scenarios);
 			Collections.sort(temp, new SorterQty());
-			return temp.get(scenario-1).toString();
-			
-		}return "punch";
+			return temp.get(scenario - 1).toString();
+
+		}
+		return "punch";
 	}
 
+	/**
+	 * Altera a forma de ordenação dos cenários, podendo ser ordenado pela ordem de
+	 * cadastro, por ordem alfabética, ou por quantia de apostas.
+	 * 
+	 * @param order
+	 *            cadastro/nome/apostas
+	 */
 	public void changeOrder(String order) {
 		if (order.trim().equals("") || order.equals(null))
 			throw new NullPointerException("Erro ao alterar ordem: Ordem nao pode ser vazia ou nula");
 		if (!order.equals("cadastro") && !order.equals("nome") && !order.equals("apostas"))
 			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem invalida");
-		
+
 		this.order = order;
 	}
-	
+
 	/**
 	 * Exibe o dinheiro total do caixa.
 	 * 

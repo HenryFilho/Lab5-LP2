@@ -233,6 +233,11 @@ public class Scenario {
 		return false;
 	}
 
+	/**
+	 * Retorna a descrição do cenário.
+	 * 
+	 * @return Descrição do cenário.
+	 */
 	public String getDesc() {
 		return desc;
 	}

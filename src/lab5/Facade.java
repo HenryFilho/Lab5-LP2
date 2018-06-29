@@ -14,6 +14,11 @@ import lab5.system.Controller;
 public class Facade {
 	private Controller control;
 
+	/**
+	 * Método main responsável por implementar os testes de aceitação.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
 				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
@@ -68,7 +73,7 @@ public class Facade {
 	}
 
 	/**
-	 * Exibe o toString de todos os cenários cadastrados.
+	 * Exibe a representação textual de todos os cenários cadastrados.
 	 * 
 	 * @return número - descrição - estado
 	 */
@@ -77,7 +82,7 @@ public class Facade {
 	}
 
 	/**
-	 * Exibe o toString de um cenário especifico.
+	 * Exibe a representação textual de um cenário especifico.
 	 * 
 	 * @param cenario
 	 *            Cenário desejado.
@@ -86,13 +91,21 @@ public class Facade {
 	public String exibirCenario(int cenario) {
 		return control.toStringScenario(cenario);
 	}
-	
-	public String exibirCenarioOrdenado(int cenario) {
-    	return control.toStringOrderedScenario(cenario);
-    }
 
 	/**
-	 * Cadastra uma aposta.
+	 * Exibe a representação textual de um cenário de acordo com a ordem
+	 * estabelecida em no método alterarOrdem().
+	 * 
+	 * @param cenario
+	 *            Cenário desejado.
+	 * @return representação textual do cenário.
+	 */
+	public String exibirCenarioOrdenado(int cenario) {
+		return control.toStringOrderedScenario(cenario);
+	}
+
+	/**
+	 * Cadastra uma aposta em um cenário.
 	 * 
 	 * @param cenario
 	 *            Cenário desejado.
@@ -213,11 +226,18 @@ public class Facade {
 	public String exibeApostas(int cenario) {
 		return control.toStringBets(cenario);
 	}
-	
-    public void alterarOrdem(String ordem) {
-    	control.changeOrder(ordem);
-    }
-    
+
+	/**
+	 * Altera a forma de ordenação dos cenários, podendo ser ordenado pela ordem de
+	 * cadastro, por ordem alfabética, ou por quantia de apostas.
+	 * 
+	 * @param ordem
+	 *            cadastro/nome/apostas
+	 */
+	public void alterarOrdem(String ordem) {
+		control.changeOrder(ordem);
+	}
+
 	/**
 	 * Finaliza um cenário para que ele não receba mais apostas.
 	 * 
