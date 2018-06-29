@@ -1,4 +1,4 @@
-package lab5.system;
+package lab5.system.control;
 
 /**
  * Aposta pai.

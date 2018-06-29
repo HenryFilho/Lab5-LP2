@@ -1,4 +1,4 @@
-package lab5.system;
+package lab5.system.control;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -231,6 +231,10 @@ public class Scenario {
 		if (!status.equals("Nao finalizado"))
 			return true;
 		return false;
+	}
+
+	public String getDesc() {
+		return desc;
 	}
 
 }

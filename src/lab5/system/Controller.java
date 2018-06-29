@@ -1,7 +1,13 @@
 package lab5.system;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import lab5.system.control.Scenario;
+import lab5.system.control.ScenarioBonus;
+import lab5.system.sorters.SorterName;
+import lab5.system.sorters.SorterQty;
 
 /**
  * Controlador do sistema, responsável pelas principais funções do programa e
@@ -35,6 +41,7 @@ public class Controller {
 		this.cashier = cents;
 		this.rate = rate;
 		this.scenarios = new ArrayList<>();
+		this.order = "cadastro";
 	}
 
 	/**
@@ -207,8 +214,33 @@ public class Controller {
 
 		return scenarios.get(scenario - 1).toString();
 	}
+	
+	public String toStringOrderedScenario(int scenario) {
+		if (scenario <= 0)
+			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: Cenario invalido");
+		if (scenario > scenarios.size())
+			throw new IndexOutOfBoundsException("Erro na consulta de cenario ordenado: Cenario nao cadastrado");
+		
+		if (order.equals("cadastro"))
+			return scenarios.get(scenario - 1).toString();
+		if (order.equals("nome")) {
+			List<Scenario> temp = new ArrayList<>(scenarios);
+			Collections.sort(temp, new SorterName());
+			return temp.get(scenario-1).toString();
+		}if (order.equals("apostas")) {
+			List<Scenario> temp = new ArrayList<>(scenarios);
+			Collections.sort(temp, new SorterQty());
+			return temp.get(scenario-1).toString();
+			
+		}return "punch";
+	}
 
 	public void changeOrder(String order) {
+		if (order.trim().equals("") || order.equals(null))
+			throw new NullPointerException("Erro ao alterar ordem: Ordem nao pode ser vazia ou nula");
+		if (!order.equals("cadastro") && !order.equals("nome") && !order.equals("apostas"))
+			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem invalida");
+		
 		this.order = order;
 	}
 	

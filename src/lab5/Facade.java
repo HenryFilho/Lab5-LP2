@@ -17,7 +17,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
 				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
-				"acceptance_test/us6_test.txt" };
+				"acceptance_test/us6_test.txt", "acceptance_test/us7_test.txt" };
 		EasyAccept.main(args);
 
 	}
@@ -86,6 +86,10 @@ public class Facade {
 	public String exibirCenario(int cenario) {
 		return control.toStringScenario(cenario);
 	}
+	
+	public String exibirCenarioOrdenado(int cenario) {
+    	return control.toStringOrderedScenario(cenario);
+    }
 
 	/**
 	 * Cadastra uma aposta.
@@ -213,7 +217,7 @@ public class Facade {
     public void alterarOrdem(String ordem) {
     	control.changeOrder(ordem);
     }
-
+    
 	/**
 	 * Finaliza um cenário para que ele não receba mais apostas.
 	 * 
